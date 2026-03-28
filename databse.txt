@@ -1,0 +1,92 @@
+# persistence_log.py
+
+# CREATE
+def add_blocker():
+    blocker = input("Enter your daily blocker: ")
+
+    file = open("database.txt", "a")
+    file.write(blocker + "\n")
+    file.close()
+
+    print("Blocker saved!\n")
+
+
+# READ (FETCH)
+def show_blockers():
+    try:
+        file = open("database.txt", "r")
+        lines = file.readlines()
+        file.close()
+
+        if len(lines) == 0:
+            print("No blockers found.\n")
+        else:
+            print("\n--- Blockers ---")
+            for line in lines:
+                print(line.strip())
+            print()
+
+    except:
+        print("File does not exist.\n")
+
+
+# UPDATE (OVERWRITE)
+def overwrite_file():
+    confirm = input("This will overwrite the file. Continue? (yes/no): ")
+
+    if confirm == "yes":
+        new_text = input("Enter new content: ")
+
+        file = open("database.txt", "w")
+        file.write(new_text + "\n")
+        file.close()
+
+        print("File overwritten!\n")
+    else:
+        print("Cancelled.\n")
+
+
+# MENU
+def menu():
+    while True:
+        print("=== Team Daily Status ===")
+        print("1. Add Blocker")
+        print("2. Show Blockers")
+        print("3. Overwrite File")
+        print("4. Exit")
+
+        option = input("Choose an option: ")
+
+        if option == "1":
+            add_blocker()
+        elif option == "2":
+            show_blockers()
+        elif option == "3":
+            overwrite_file()
+        elif option == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid option.\n")
+
+
+# RUN
+menu()
+
+
+"""
+=========== ENGLISH TASK ===========
+
+Protocol selection:
+
+1. I will reach out via Slack because it is fast and useful for urgent issues.
+2. I will use Email for formal communication and documentation.
+3. I will use Jira to report and track the problem.
+
+Vocabulary:
+
+This program uses Persistence to store data in a file.
+It allows the user to Fetch information easily.
+It also includes an Overwrite option to replace data.
+If there is a problem, I can Reach out to the team.
+"""
